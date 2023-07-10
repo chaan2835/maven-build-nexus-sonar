@@ -24,23 +24,34 @@ pipeline{
       }
     }
 
-   stage("Uploading Artifact") {
+   stage("Uploading Artifact to nexus") {
     steps {
-        nexusArtifactUploader artifacts:
+          def pom = readMavenPom file: 'pom.xml'
+          def artifactId = pom.artifactId
+          def groupId = pom.groupId
+          def version = pom.version
+          def packaging = pom.packaging
+          echo "#####################################################################"
+          echo "ArtifactId: ${artifactId}"
+          echo "Groupid: ${groupId}"
+          echo "version: ${version}"
+          echo "packaging: ${packaging}"
+          echo "######################################################################"
+            nexusArtifactUploader artifacts:
         [
-          [ artifactId: 'favourite-places',
+          [ artifactId: "${artifactId}",
             classifier: '',
-            file: 'target/favourite-places-1-SNAPSHOT.war',
-            type: 'war'
+            file: "target/${artifactId}-${version}.war",
+            type: "${packaging}"
           ]
         ],
          credentialsId: 'nexus-creds',
-         groupId: 'icic',
-         nexusUrl: '43.204.215.226:8081',
+         groupId: "${groupId}",
+         nexusUrl: '43.204.112.58:8081',
          nexusVersion: 'nexus3',
          protocol: 'http',
          repository: 'fav-places',
-         version: '1-${BUILD_NUMBER}-SNAPSHOT'
+         version: "${version}"
       }
     }
     stage ("sonar-code-analysis"){
