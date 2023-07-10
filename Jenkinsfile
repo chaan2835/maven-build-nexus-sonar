@@ -26,6 +26,7 @@ pipeline{
 
    stage("Uploading Artifact to nexus") {
     steps {
+      script{
           def pom = readMavenPom file: 'pom.xml'
           def artifactId = pom.artifactId
           def groupId = pom.groupId
@@ -52,6 +53,8 @@ pipeline{
          protocol: 'http',
          repository: 'fav-places',
          version: "${version}"
+        }
+
       }
     }
     stage ("sonar-code-analysis"){
