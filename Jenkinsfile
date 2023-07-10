@@ -49,7 +49,7 @@ pipeline{
         ],
          credentialsId: 'nexus-creds',
          groupId: "${groupId}",
-         nexusUrl: '${nexus_url}:8081',
+         nexusUrl: "${nexus_url}:8081",
          nexusVersion: 'nexus3',
          protocol: 'http',
          repository: 'fav-places',
