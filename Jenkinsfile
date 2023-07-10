@@ -1,3 +1,4 @@
+def nexus_url = "43.204.112.58"
 pipeline{
   agent any
   tools {
@@ -48,7 +49,7 @@ pipeline{
         ],
          credentialsId: 'nexus-creds',
          groupId: "${groupId}",
-         nexusUrl: '43.204.112.58:8081',
+         nexusUrl: '${nexus_url}:8081',
          nexusVersion: 'nexus3',
          protocol: 'http',
          repository: 'fav-places',
