@@ -4,7 +4,7 @@
 
     <groupId>icic</groupId>
     <artifactId>favourite-places</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>favourite-places</name>
