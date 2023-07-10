@@ -36,7 +36,7 @@ pipeline{
         ],
          credentialsId: 'nexus-creds',
          groupId: 'icic',
-         nexusUrl: '15.206.189.45:8081',
+         nexusUrl: '43.204.215.226/:8081',
          nexusVersion: 'nexus3',
          protocol: 'http',
          repository: 'fav-places',
