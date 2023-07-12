@@ -70,7 +70,7 @@ pipeline{
     stage("Docker-login"){
       steps{
           // sh "docker login -u chaan2835 -pChandra@2835"
-          sh "docker login -u $ {{secrets.DOCKER_USERNAME}} -p$ {{secrets.DOCKER_PASSWORD}}"
+          sh "docker login -u \${{secrets.DOCKER_USERNAME}} -p\${{secrets.DOCKER_PASSWORD}}"
           sh "docker build -t chaan2835/fav-places ."
           sh "docker push chaan2835/fav-places"
         script{
