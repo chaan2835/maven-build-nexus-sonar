@@ -66,7 +66,7 @@ pipeline{
       steps{
         script{
           withSonarQubeEnv(credentialsId: 'sonar-creds') {
-              sh "mvn sonar:sonar"
+              sh "mvn sonar:sonar -Dsonar.login=846f5941a876c6ffab35e0e1dc89b0a644ddf4e9"
           }
         }
       }
