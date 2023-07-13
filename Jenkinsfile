@@ -1,4 +1,4 @@
-def nexus_url = "3.110.51.162"
+def nexus_url = "3.109.153.218"
 pipeline{
   agent any
   tools {
