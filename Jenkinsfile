@@ -4,10 +4,10 @@ pipeline{
   tools {
     maven 'maven_3.6.3'
   }
-  environment {
-        DOCKER_USERNAME = credentials('docker-credentials').username
-        DOCKER_PASSWORD = credentials('docker-credentials').password
-    }
+  // environment {
+  //       DOCKER_USERNAME = credentials('docker-credentials').username
+  //       DOCKER_PASSWORD = credentials('docker-credentials').password
+  //   }
 
   options{
     timestamps()
