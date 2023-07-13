@@ -71,21 +71,21 @@ pipeline{
         }
       }
     }
-    stage("Docker-login"){
-      steps{
-          // sh "docker login -u chaan2835 -pChandra@2835"
-          withEnv(["DOCKER_USERNAME=${env.DOCKER_USERNAME}", "DOCKER_PASSWORD=${env.DOCKER_PASSWORD}"]){
-            sh "docker build -t chaan2835/fav-places ."
-            sh "docker push chaan2835/fav-places"
-          }
+    // stage("Docker-login"){
+    //   steps{
+    //       // sh "docker login -u chaan2835 -pChandra@2835"
+    //       withEnv(["DOCKER_USERNAME=${env.DOCKER_USERNAME}", "DOCKER_PASSWORD=${env.DOCKER_PASSWORD}"]){
+    //         sh "docker build -t chaan2835/fav-places ."
+    //         sh "docker push chaan2835/fav-places"
+    //       }
 
-        script{
+    //     script{
 
-          def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
-          echo "DOCKER_CONTAINER_PORT:$DOCKER_CONTAINER_PORT"
-          sh "docker run -p ${DOCKER_CONTAINER_PORT}:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/fav-places"
-         }
-      }
-    }
+    //       def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
+    //       echo "DOCKER_CONTAINER_PORT:$DOCKER_CONTAINER_PORT"
+    //       sh "docker run -p ${DOCKER_CONTAINER_PORT}:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/fav-places"
+    //      }
+    //   }
+    // }
   }
 }
