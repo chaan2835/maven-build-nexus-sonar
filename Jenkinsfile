@@ -75,31 +75,44 @@ pipeline{
     stage ("s3-upload"){
       steps{
         s3Upload consoleLogLevel: 'INFO',
-                 dontSetBuildResultOnFailure: false,
-                 dontWaitForConcurrentBuildCompletion: false,
-                 entries: [
-                    [bucket: 'jenkins-s3-uploader',
-                     excludedFile: '',
-                     flatten: false,
-                     gzipFiles: false,
-                     keepForever: false,
-                     managedArtifacts: false,
-                     noUploadOnFailure: false,
-                     selectedRegion: 'ap-south-1',
-                     showDirectlyInBrowser: false,
-                     sourceFile: '**/target/*.war',
-                     storageClass: 'STANDARD',
-                     uploadFromSlave: false,
-                     useServerSideEncryption: false]
-                    ], pluginFailureResultConstraint: 'FAILURE',
-                       profileName: 'jenkins-s3-uploader',
-                       userMetadata: []
+        dontSetBuildResultOnFailure: false,
+        dontWaitForConcurrentBuildCompletion: false,
+        entries: [
+          [bucket: 'jenkins-s3-uploader',
+            excludedFile: '',
+            flatten: false,
+            gzipFiles: false,
+            keepForever: false,
+            managedArtifacts: false,
+            noUploadOnFailure: false,
+            selectedRegion: 'ap-south-1',
+            showDirectlyInBrowser: false,
+            sourceFile: '**/target/*.war',
+            storageClass: 'STANDARD',
+            uploadFromSlave: false,
+            useServerSideEncryption: false]
+          ], pluginFailureResultConstraint: 'FAILURE',
+              profileName: 'jenkins-s3-uploader',
+              userMetadata: []
+      }
+    }
+    stage("Docker"){
+      steps{
+        echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
+        withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker-certs')]) {
+          sh "docker login -u chaan2835 -p ${Docker-certs}"
+        }
+        echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
+        sh "docker built -t chaan2835/${env.JOB-NAME}:v-${env.BUILD_NUMBER} ."
+
+        echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub"
+        sh "docker push chaan2835/${env.JOB-NAME}:v-${env.BUILD_NUMBER}"
       }
     }
   }
   post {
     always{
-      slackSend channel: '#jenkins-job-status', message: "Hey! there here is your jenkins job slack notification\nStatus-{currentBuild.currentResult} ${env.JOB_NAME} ${env.BUILD_NUMBER} ${env.BUILD_URL}"
+      slackSend channel: '#jenkins-job-status', message: "Hey! there here is your jenkins job status\nStatus-{currentBuild.currentResult} ${env.JOB_NAME} ${env.BUILD_NUMBER} ${env.BUILD_URL}"
     }
   }
 }
