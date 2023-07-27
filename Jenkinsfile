@@ -117,8 +117,7 @@ pipeline{
         // script{
         //   def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
         //   echo "Docker_container_port---->$DOCKER_CONTAINER_PORT"
-        /
-        // }
+
     }
   }
   post {
