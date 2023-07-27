@@ -102,9 +102,9 @@ pipeline {
         stage("Docker") {
             steps {
 
-                echo ">>>>>>>>>>>>>>>>>>>>>> Stopping and Removing Existing Containers <<<<<<<<<<<<<<<<"
+                echo ">>>>>>>>>>>>>>>>>>>>>> Stopping  Containers <<<<<<<<<<<<<<<<"
                 sh 'docker stop $(docker ps -q)'
-                sh 'docker rm -f --force $(docker ps -aq)'
+                // sh 'docker rm -f --force $(docker ps -aq)'
 
                 echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
                 sh 'docker rmi -f $(docker images -q)'
