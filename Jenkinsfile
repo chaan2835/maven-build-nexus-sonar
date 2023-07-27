@@ -107,7 +107,7 @@ pipeline {
                 sh 'docker rm -f $(docker ps -aq)'
 
                 echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
-                sh 'docker rmi $(docker images -q)'
+                sh 'docker rmi -f $(docker images -q)'
 
                 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>removing-existing-containers<<<<<<<<<<<<<<<<<<<<"
                 sh 'docker rm -f $(docker ps -aq)'
