@@ -102,11 +102,14 @@ pipeline{
 
         echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
         withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker')]) {
-            sh "docker login -u chaan2835 -p ${Docker}"
-        }
-
+            sh "docker login -u chaan2835 -p ${Docker}"}
         echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub<<<<<<<<<<<<<<<<<<<<<<<<<<"
         sh "docker push chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
+        script{
+          def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
+          echo "$DOCKER_CONTAINER_PORT"
+          sh "docker run -p ${DOCKER_CONTAINER_PORT}:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/${env.JOB_NAME}"
+        }
       }
     }
   }
