@@ -99,7 +99,7 @@ pipeline{
     stage("Docker"){
     steps{
         echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
-        sh "docker built -t chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER} ."
+        sh "docker build -t chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER} ."
 
         echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
         withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker')]) {
