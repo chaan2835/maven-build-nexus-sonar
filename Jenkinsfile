@@ -104,7 +104,7 @@ pipeline {
 
                 echo ">>>>>>>>>>>>>>>>>>>>>> Stopping and Removing Existing Containers <<<<<<<<<<<<<<<<"
                 sh 'docker stop $(docker ps -aq)'
-                sh 'docker rm -f $(docker ps -aq)'
+                sh 'docker rm -f --force $(docker ps -aq)'
 
                 echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
                 sh 'docker rmi -f $(docker images -q)'
