@@ -119,7 +119,6 @@ pipeline{
         //   echo "Docker_container_port---->$DOCKER_CONTAINER_PORT"
         /
         // }
-      }
     }
   }
   post {
