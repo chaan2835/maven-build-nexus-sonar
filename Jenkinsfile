@@ -123,6 +123,7 @@ pipeline{
   post {
     always{
       slackSend channel: '#jenkins-job-status', message: "Hey! there here is your jenkins job status\nStatus-{currentBuild.currentResult} ${env.JOB_NAME} ${env.BUILD_NUMBER} ${env.BUILD_URL}"
+      }
     }
   }
 }
