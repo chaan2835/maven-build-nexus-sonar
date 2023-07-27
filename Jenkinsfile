@@ -98,7 +98,7 @@ pipeline{
     stage("Docker"){
     steps{
         echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-iamges<<<<<<<<<<<<<<<<"
-        sh "docker rm $(docker ps -aq)"
+        sh "docker rmi $(docker images -q)"
 
         echo ">>>>>>>>>>>>>>>>>>>>>>>>>>removing-existing-containers<<<<<<<<<<<<<<<<<<<<"
         sh "docker rm -f $(docker ps -aq)"
