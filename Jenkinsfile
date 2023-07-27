@@ -105,7 +105,7 @@ pipeline{
             sh "docker login -u chaan2835 -p ${Docker}"
         }
 
-        echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub"
+        echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub<<<<<<<<<<<<<<<<<<<<<<<<<<"
         sh "docker push chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
       }
     }
