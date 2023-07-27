@@ -107,11 +107,11 @@ pipeline {
                 // sh 'docker rm -f --force $(docker ps -aq)'
                 sh 'docker image prune -a --force'
 
-                echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
-                sh 'docker rmi -f $(docker images -q)'
+                // echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
+                // sh 'docker rmi -f $(docker images -q)'
 
-                echo ">>>>>>>>>>>>>>>>>>>>>>>>>>removing-existing-containers<<<<<<<<<<<<<<<<<<<<"
-                sh 'docker rm -f $(docker ps -aq)'
+                // echo ">>>>>>>>>>>>>>>>>>>>>>>>>>removing-existing-containers<<<<<<<<<<<<<<<<<<<<"
+                // sh 'docker rm -f $(docker ps -aq)'
 
                 echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
                 sh "docker build -t chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER} ."
