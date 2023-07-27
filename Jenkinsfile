@@ -72,5 +72,29 @@ pipeline{
         }
       }
     }
+    stage ("s3-upload"){
+      steps{
+        s3Upload consoleLogLevel: 'INFO',
+                 dontSetBuildResultOnFailure: false,
+                 dontWaitForConcurrentBuildCompletion: false,
+                 entries: [
+                    [bucket: 'jenkins-s3-uploader',
+                     excludedFile: '',
+                     flatten: false,
+                     gzipFiles: false,
+                     keepForever: false,
+                     managedArtifacts: false,
+                     noUploadOnFailure: false,
+                     selectedRegion: 'ap-south-1',
+                     showDirectlyInBrowser: false,
+                     sourceFile: '**/target/*.war',
+                     storageClass: 'STANDARD',
+                     uploadFromSlave: false,
+                     useServerSideEncryption: false]
+                    ], pluginFailureResultConstraint: 'FAILURE',
+                       profileName: 'jenkins-s3-uploader',
+                       userMetadata: []
+      }
+    }
   }
 }
