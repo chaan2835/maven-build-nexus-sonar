@@ -97,6 +97,12 @@ pipeline{
     }
     stage("Docker"){
     steps{
+        echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-iamges<<<<<<<<<<<<<<<<"
+        sh "docker rmi  $(docker images -q)"
+
+        echo ">>>>>>>>>>>>>>>>>>>>>>>>>>removing-existing-containers<<<<<<<<<<<<<<<<<<<<"
+        sh "docker rm -f $(docker ps -aq)"
+
         echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
         sh "docker build -t chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER} ."
 
@@ -105,11 +111,14 @@ pipeline{
             sh "docker login -u chaan2835 -p ${Docker}"}
         echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub<<<<<<<<<<<<<<<<<<<<<<<<<<"
         sh "docker push chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
-        script{
-          def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
-          echo "Docker_container_port---->$DOCKER_CONTAINER_PORT"
-          sh "docker run -p ${DOCKER_CONTAINER_PORT}:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
-        }
+
+        echo ">>>>>>>>>>>>>>>>>>>>starting-docker-container<<<<<<<<<<<<<<<<<<<"
+        sh "docker run -p 80:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
+        // script{
+        //   def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
+        //   echo "Docker_container_port---->$DOCKER_CONTAINER_PORT"
+        /
+        // }
       }
     }
   }
