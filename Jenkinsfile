@@ -98,12 +98,13 @@ pipeline{
     }
     stage("Docker"){
     steps{
-        echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
-        withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker-certs')]) {
-            sh "docker login -u chaan2835 -p ${Docker-certs}"
-        }
         echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
         sh "docker built -t chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER} ."
+
+        echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
+        withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker')]) {
+            sh "docker login -u chaan2835 -p ${Docker}"
+        }
 
         echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub"
         sh "docker push chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER}"
