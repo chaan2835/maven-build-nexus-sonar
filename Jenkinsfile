@@ -124,7 +124,7 @@ pipeline {
                 sh "docker push chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
 
                 echo ">>>>>>>>>>>>>>>>>>>>starting-docker-container<<<<<<<<<<<<<<<<<<<"
-                sh "docker run -p 80:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
+                sh "docker run -p 80:80 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
                 // script{
                 //   def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
                 //   echo "Docker_container_port---->$DOCKER_CONTAINER_PORT"
