@@ -1,4 +1,4 @@
-def nexus_url = "3.109.153.218"
+def nexus_url = "3.108.54.194"
 pipeline{
   agent any
   tools {
@@ -66,26 +66,11 @@ pipeline{
       steps{
         script{
           withSonarQubeEnv(credentialsId: 'sonar-creds') {
-              sh "mvn sonar:sonar -Dsonar.login=846f5941a876c6ffab35e0e1dc89b0a644ddf4e9"
+              // sh "mvn sonar:sonar -Dsonar.login=846f5941a876c6ffab35e0e1dc89b0a644ddf4e9"
+              sh "mvn sonar:sonar"
           }
         }
       }
     }
-    // stage("Docker-login"){
-    //   steps{
-    //       // sh "docker login -u chaan2835 -pChandra@2835"
-    //       withEnv(["DOCKER_USERNAME=${env.DOCKER_USERNAME}", "DOCKER_PASSWORD=${env.DOCKER_PASSWORD}"]){
-    //         sh "docker build -t chaan2835/fav-places ."
-    //         sh "docker push chaan2835/fav-places"
-    //       }
-
-    //     script{
-
-    //       def DOCKER_CONTAINER_PORT = env.BUILD_NUMBER.toInteger()
-    //       echo "DOCKER_CONTAINER_PORT:$DOCKER_CONTAINER_PORT"
-    //       sh "docker run -p ${DOCKER_CONTAINER_PORT}:8080 -d --name ${env.JOB_NAME}-${env.BUILD_NUMBER} chaan2835/fav-places"
-    //      }
-    //   }
-    // }
   }
 }
