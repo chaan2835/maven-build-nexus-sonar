@@ -59,7 +59,6 @@ pipeline{
          repository: 'fav-places',
          version: "${version}"
         }
-
       }
     }
     stage ("sonar-code-analysis"){
@@ -99,7 +98,7 @@ pipeline{
     stage("Docker"){
     steps{
         echo ">>>>>>>>>>>>>>>>>>>Docker-Image-Build<<<<<<<<<<<<<<<<<<<<<<<<"
-        sh "docker build -t chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER} ."
+        sh "docker build -t chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER} ."
 
         echo ">>>>>>>>>>>>>>>>>>>>Docker-Login<<<<<<<<<<<<<<<<<<<<<<<<"
         withCredentials([string(credentialsId: 'docker-creds', variable: 'Docker')]) {
@@ -107,7 +106,7 @@ pipeline{
         }
 
         echo ">>>>>>>>>>>>>>>>>>>>>>>>Docker-Image-Push-To-Docker-Hub"
-        sh "docker push chaan2835/${env.JOB_NAME}:v-${env.BUILD_NUMBER}"
+        sh "docker push chaan2835/${env.JOB_NAME}:v${env.BUILD_NUMBER}"
       }
     }
   }
