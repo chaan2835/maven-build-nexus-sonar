@@ -103,8 +103,9 @@ pipeline {
             steps {
 
                 echo ">>>>>>>>>>>>>>>>>>>>>> Stopping  Containers <<<<<<<<<<<<<<<<"
-                sh 'docker stop $(docker ps -q)'
+                // sh 'docker stop $(docker ps -q)'
                 // sh 'docker rm -f --force $(docker ps -aq)'
+                sh 'docker image prune -a --force'
 
                 echo ">>>>>>>>>>>>>>>>>>>>>>removing-existing-images<<<<<<<<<<<<<<<<"
                 sh 'docker rmi -f $(docker images -q)'
